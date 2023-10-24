@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model TicTacToeViewModel
+<div class="field">
+    @foreach(var item in Model.FIeld.Cells)
+    {
+        if (@item.Blocked)
+        {
+            <a cell="@item.Id" Blocked="@item.Blocked" type="cell"><img class="@item.Toggle" src="@item.Src" /></a>
+        }
+        else
+        {
+            <a cell="@item.Id" type="cell"><img class="@item.Toggle" src="@item.Src" /></a>
+        }
+    }
+</div>
+@if(Model.GameMode!=null)
+{
+    <div>Выбран режим игры: @Model.GameMode</div>
+}
+else
+{
+    <div>Выберите режим игры</div>
+}
+<a class="btn btn-primary" cell="vsMan" type="chooseMode">Игрок против Игрока</a>
+<a class="btn btn-primary" cell="vsMachine" type="chooseMode">Игрок против Компьютера</a>
+@if (Model.GameMode != null)
+{
+    <a  class="btn btn-primary" cell="123" type="start">Начать игру</a>
+}
+
+@if (Model.PlayerMove != null)
+{
+    if (Model.PlayerWin != null)
+    {
+        <div>@Model.PlayerWin</div>
+    }
+    else
+    {
+        <div>Сейчас ходит: 
+            @if (Model.PlayerMove.Equals("player1"))
+            {
+                <span>Игрок 1</span>
+            }
+            else if (Model.PlayerMove.Equals("player2"))
+            {
+                <span>Игрок 2</span>
+            }
+            else if (Model.PlayerMove.Equals("machine"))
+            {
+                <span>Компьютер</span>
+            }
+        </div>
+    }
+}
+else
+{
+    <div>Чтобы игра началась, нажмите кнопку "Начать игру"</div>
+}
+
